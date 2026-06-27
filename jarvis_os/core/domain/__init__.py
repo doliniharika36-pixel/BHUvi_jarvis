@@ -41,4 +41,9 @@ from jarvis_os.core.domain.events import (
     SecurityViolationEvent,
     PerformanceAlertEvent,
     LLMQueryExecutedEvent,
+    RuntimeStarting,
+    RuntimeStarted,
+    RuntimeStopping,
+    RuntimeStopped,
+    RuntimeFailed,
 )

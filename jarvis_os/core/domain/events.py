@@ -61,3 +61,33 @@ class LLMQueryExecutedEvent(DomainEvent):
     response_length: int = 0
     elapsed_seconds: float = 0.0
     model_name: str = ""
+
+
+@dataclass
+class RuntimeStarting(DomainEvent):
+    """Emitted when the application host starts the bootstrapping process."""
+    pass
+
+
+@dataclass
+class RuntimeStarted(DomainEvent):
+    """Emitted when the application host completes startup and transitions to RUNNING."""
+    startup_time_ms: float = 0.0
+
+
+@dataclass
+class RuntimeStopping(DomainEvent):
+    """Emitted when the application host begins the shutdown process."""
+    reason: str = ""
+
+
+@dataclass
+class RuntimeStopped(DomainEvent):
+    """Emitted when the application host completes shutdown and transitions to STOPPED."""
+    pass
+
+
+@dataclass
+class RuntimeFailed(DomainEvent):
+    """Emitted when the application host fails during startup, shutdown, or execution."""
+    error_message: str = ""
