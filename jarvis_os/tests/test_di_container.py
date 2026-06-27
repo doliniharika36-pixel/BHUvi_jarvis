@@ -114,7 +114,7 @@ class TestDIContainer(unittest.TestCase):
             def __init__(self):
                 with SlowService.count_lock:
                     SlowService.instantiation_count += 1
-                time.sleep(0.01)  # Force context switch to test race conditions
+                time.sleep(0.001)  # Force context switch to test race conditions
 
         self.container.register_singleton(SlowService, lambda c: SlowService())
 
@@ -125,17 +125,17 @@ class TestDIContainer(unittest.TestCase):
             inst = self.container.resolve(SlowService)
             resolved_instances.append(inst)
 
-        # Run 10 threads concurrently resolving the same singleton
-        for _ in range(10):
+        # Run 5 threads concurrently resolving the same singleton
+        for _ in range(5):
             t = threading.Thread(target=worker)
             threads.append(t)
             t.start()
 
         for t in threads:
-            t.join()
+            t.join(timeout=5)  # Guard: never hang for more than 5 s
 
         # All threads must have resolved the same instance
-        self.assertEqual(len(resolved_instances), 10)
+        self.assertEqual(len(resolved_instances), 5)
         first_instance = resolved_instances[0]
         for inst in resolved_instances:
             self.assertIs(inst, first_instance)

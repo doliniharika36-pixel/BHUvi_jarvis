@@ -13,7 +13,7 @@ class DIContainer:
     def __init__(self):
         self._registry: Dict[Type[Any], Tuple[Callable[['DIContainer'], Any], str]] = {}
         self._instances: Dict[Type[Any], Any] = {}
-        self._lock = threading.Lock()
+        self._lock = threading.RLock()  # Re-entrant: factories may call resolve() while lock is held
 
     def register_singleton(self, interface: Type[T], factory: Callable[['DIContainer'], T]) -> None:
         """Register a service factory with singleton lifetime.

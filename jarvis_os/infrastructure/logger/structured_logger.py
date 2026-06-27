@@ -108,7 +108,9 @@ class StructuredLogger(LoggerPort):
 
     def _setup_handlers(self) -> None:
         """Configures file and console logging handlers dynamically based on configuration."""
-        # Clear any existing handlers
+        # Close and clear any existing handlers first to prevent resource leaks
+        for h in self._logger.handlers:
+            h.close()
         self._logger.handlers.clear()
 
         # Resolve level
