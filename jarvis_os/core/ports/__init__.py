@@ -16,4 +16,17 @@ from jarvis_os.core.ports.diagnostics import (
     DiagnosticProvider,
     DiagnosticsServicePort,
 )
-
+# Milestone 6A – LLM Provider Interface (additive; does not replace LLMPort)
+from jarvis_os.core.ports.llm_provider import (
+    ModelCapability,
+    ModelInfo,
+    GenerationOptions,
+    LLMRequest,
+    StreamingResponse,
+    LLMProviderError,
+    LLMTimeoutError,
+    LLMCancelledError,
+    LLMRequestValidationError,
+    LLMModelNotFoundError,
+    LLMProvider,
+)
