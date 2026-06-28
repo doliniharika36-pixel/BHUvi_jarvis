@@ -20,3 +20,25 @@
 {"timestamp": "2026-06-28T00:18:14.314113", "level": "INFO", "message": "Migration v1 ('create foo') applied successfully.", "module": "migrations", "filename": "migrations.py", "line": 105, "metadata": {}}
 {"timestamp": "2026-06-28T00:18:14.315114", "level": "INFO", "message": "Migration v1 ('create bar') applied successfully.", "module": "migrations", "filename": "migrations.py", "line": 105, "metadata": {}}
 {"timestamp": "2026-06-28T00:18:14.316112", "level": "INFO", "message": "Migration v1 ('create t') applied successfully.", "module": "migrations", "filename": "migrations.py", "line": 105, "metadata": {}}
+{"timestamp": "2026-06-28T11:28:32.717150", "level": "INFO", "message": "Migration v1 ('v1') applied successfully.", "module": "migrations", "filename": "migrations.py", "line": 105, "metadata": {}}
+{"timestamp": "2026-06-28T11:28:32.717150", "level": "INFO", "message": "Migration v2 ('v2') applied successfully.", "module": "migrations", "filename": "migrations.py", "line": 105, "metadata": {}}
+{"timestamp": "2026-06-28T11:28:32.718149", "level": "INFO", "message": "Migration v1 ('v1') applied successfully.", "module": "migrations", "filename": "migrations.py", "line": 105, "metadata": {}}
+{"timestamp": "2026-06-28T11:28:32.719149", "level": "INFO", "message": "Migration v2 ('v2') applied successfully.", "module": "migrations", "filename": "migrations.py", "line": 105, "metadata": {}}
+{"timestamp": "2026-06-28T11:28:32.720123", "level": "INFO", "message": "Migration v1 ('v1') applied successfully.", "module": "migrations", "filename": "migrations.py", "line": 105, "metadata": {}}
+{"timestamp": "2026-06-28T11:28:32.720123", "level": "INFO", "message": "Migration v2 ('v2') applied successfully.", "module": "migrations", "filename": "migrations.py", "line": 105, "metadata": {}}
+{"timestamp": "2026-06-28T11:28:32.721250", "level": "INFO", "message": "Migration v3 ('v3') applied successfully.", "module": "migrations", "filename": "migrations.py", "line": 105, "metadata": {}}
+{"timestamp": "2026-06-28T11:28:32.721250", "level": "INFO", "message": "Migration v1 ('multi') applied successfully.", "module": "migrations", "filename": "migrations.py", "line": 105, "metadata": {}}
+{"timestamp": "2026-06-28T11:28:32.722249", "level": "INFO", "message": "Migration v1 ('create foo') applied successfully.", "module": "migrations", "filename": "migrations.py", "line": 105, "metadata": {}}
+{"timestamp": "2026-06-28T11:28:32.723249", "level": "INFO", "message": "Migration v1 ('create bar') applied successfully.", "module": "migrations", "filename": "migrations.py", "line": 105, "metadata": {}}
+{"timestamp": "2026-06-28T11:28:32.725248", "level": "INFO", "message": "Migration v1 ('create t') applied successfully.", "module": "migrations", "filename": "migrations.py", "line": 105, "metadata": {}}
+{"timestamp": "2026-06-28T11:29:06.187820", "level": "INFO", "message": "Migration v1 ('v1') applied successfully.", "module": "migrations", "filename": "migrations.py", "line": 105, "metadata": {}}
+{"timestamp": "2026-06-28T11:29:06.189759", "level": "INFO", "message": "Migration v2 ('v2') applied successfully.", "module": "migrations", "filename": "migrations.py", "line": 105, "metadata": {}}
+{"timestamp": "2026-06-28T11:29:06.191882", "level": "INFO", "message": "Migration v1 ('v1') applied successfully.", "module": "migrations", "filename": "migrations.py", "line": 105, "metadata": {}}
+{"timestamp": "2026-06-28T11:29:06.192303", "level": "INFO", "message": "Migration v2 ('v2') applied successfully.", "module": "migrations", "filename": "migrations.py", "line": 105, "metadata": {}}
+{"timestamp": "2026-06-28T11:29:06.193083", "level": "INFO", "message": "Migration v1 ('v1') applied successfully.", "module": "migrations", "filename": "migrations.py", "line": 105, "metadata": {}}
+{"timestamp": "2026-06-28T11:29:06.193596", "level": "INFO", "message": "Migration v2 ('v2') applied successfully.", "module": "migrations", "filename": "migrations.py", "line": 105, "metadata": {}}
+{"timestamp": "2026-06-28T11:29:06.194131", "level": "INFO", "message": "Migration v3 ('v3') applied successfully.", "module": "migrations", "filename": "migrations.py", "line": 105, "metadata": {}}
+{"timestamp": "2026-06-28T11:29:06.195175", "level": "INFO", "message": "Migration v1 ('multi') applied successfully.", "module": "migrations", "filename": "migrations.py", "line": 105, "metadata": {}}
+{"timestamp": "2026-06-28T11:29:06.195842", "level": "INFO", "message": "Migration v1 ('create foo') applied successfully.", "module": "migrations", "filename": "migrations.py", "line": 105, "metadata": {}}
+{"timestamp": "2026-06-28T11:29:06.196381", "level": "INFO", "message": "Migration v1 ('create bar') applied successfully.", "module": "migrations", "filename": "migrations.py", "line": 105, "metadata": {}}
+{"timestamp": "2026-06-28T11:29:06.197463", "level": "INFO", "message": "Migration v1 ('create t') applied successfully.", "module": "migrations", "filename": "migrations.py", "line": 105, "metadata": {}}

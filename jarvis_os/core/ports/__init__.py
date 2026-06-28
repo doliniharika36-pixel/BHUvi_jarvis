@@ -11,3 +11,9 @@ from jarvis_os.core.ports.repository import RepositoryPort, ConfigRepositoryPort
 from jarvis_os.core.ports.policy import PolicyPort
 from jarvis_os.core.ports.health import HealthMonitorPort
 from jarvis_os.core.ports.performance import PerformanceMonitorPort
+from jarvis_os.core.ports.diagnostics import (
+    DiagnosticsReport,
+    DiagnosticProvider,
+    DiagnosticsServicePort,
+)
+
