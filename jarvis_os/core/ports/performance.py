@@ -2,9 +2,34 @@
 Performance Monitor Port Contract for Jarvis OS.
 """
 from abc import ABC, abstractmethod
+from dataclasses import dataclass
+from datetime import datetime
 from typing import Any, List, Optional
 from jarvis_os.core.domain.value_objects import SystemResourceUsage
 from jarvis_os.core.domain.entities import MetricSample
+
+
+@dataclass(frozen=True)
+class PerformanceSnapshot:
+    """An aggregated snapshot of performance metrics across all providers."""
+    timestamp: datetime
+    metrics: List[MetricSample]
+
+
+class PerformanceProvider(ABC):
+    """Interface defining a subsystem that can expose its own performance metrics."""
+
+    @property
+    @abstractmethod
+    def name(self) -> str:
+        """Name of the subsystem exposing performance metrics."""
+        pass
+
+    @abstractmethod
+    def get_metrics(self) -> List[MetricSample]:
+        """Fetch current metric samples from this subsystem."""
+        pass
+
 
 class PerformanceMonitorPort(ABC):
     """Interface defining system resource metrics logging and latency profiling."""
@@ -33,3 +58,5 @@ class PerformanceMonitorPort(ABC):
                 # run DB code
         """
         pass
+
+

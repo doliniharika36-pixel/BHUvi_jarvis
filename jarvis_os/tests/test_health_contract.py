@@ -41,6 +41,13 @@ class TestHealthMonitorPortContract(unittest.TestCase):
             def register_subsystem(self, name: str, checker: Callable[[], SubsystemStatus]) -> None:
                 self._checkers[name] = checker
 
+            def get_health_report(self, timeout: float = 2.0):
+                from jarvis_os.core.ports.health import HealthReport, HealthStatus
+                return HealthReport(overall_status=HealthStatus.HEALTHY, checked_at=datetime.now())
+
+            def register_provider(self, provider) -> None:
+                pass
+
         health = MockHealth()
         self.assertIsInstance(health, HealthMonitorPort)
         

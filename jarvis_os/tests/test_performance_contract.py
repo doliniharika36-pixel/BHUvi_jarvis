@@ -60,6 +60,8 @@ class TestPerformanceMonitorPortContract(unittest.TestCase):
                     timestamp=datetime.now()
                 ))
 
+
+
         monitor = MockPerformance()
         self.assertIsInstance(monitor, PerformanceMonitorPort)
         
