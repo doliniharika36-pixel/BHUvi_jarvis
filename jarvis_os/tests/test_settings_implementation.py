@@ -60,7 +60,7 @@ class TestEnvSettings(unittest.TestCase):
         # Create a temporary .env file
         with tempfile.NamedTemporaryFile(mode="w", delete=False, suffix=".env") as temp_env:
             temp_env.write("# This is a comment\n")
-            temp_env.write("llm.model = custom-qwen:1.5b\n")
+            temp_env.write("llm.model = qwen2.5:3b\n")
             temp_env.write("JARVIS_LLM_URL = http://127.0.0.1:11434\n")
             temp_env.write("JARVIS_SECURITY_SANDBOX_ENABLED = false\n")
             temp_env.write("JARVIS_SECURITY_ALLOWED_ROOTS = C:\\workspace, D:\\media\n")
@@ -70,7 +70,7 @@ class TestEnvSettings(unittest.TestCase):
             settings = EnvSettings(env_file_path=temp_env_path)
             settings.load()
 
-            self.assertEqual(settings.get("llm.model"), "custom-qwen:1.5b")
+            self.assertEqual(settings.get("llm.model"), "qwen2.5:3b")
             self.assertEqual(settings.get("llm.url"), "http://127.0.0.1:11434")
             self.assertFalse(settings.get_boolean("security.sandbox_enabled"))
             self.assertEqual(settings.get("security.allowed_roots"), ["C:\\workspace", "D:\\media"])

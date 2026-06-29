@@ -30,6 +30,70 @@ from .streaming_response import SyncStreamingResponse
 # NOTE: We reuse SyncStreamingResponse from streaming_response.py
 
 
+def _safe_int(value: Any, default: int) -> int:
+    if isinstance(value, bool):
+        return default
+    if isinstance(value, int):
+        return value
+    if isinstance(value, float):
+        return int(value)
+    if isinstance(value, str):
+        try:
+            return int(value.strip())
+        except ValueError:
+            return default
+    return default
+
+
+def _parse_parameter_count(value: Any) -> Optional[int]:
+    """Parse Ollama parameter sizes such as 3.1B or 512M without throwing."""
+    if isinstance(value, bool) or value is None:
+        return None
+    if isinstance(value, (int, float)):
+        return int(value)
+    if not isinstance(value, str):
+        return None
+
+    text = value.strip().upper()
+    if not text:
+        return None
+
+    multiplier = 1
+    if text.endswith("B"):
+        multiplier = 1_000_000_000
+        text = text[:-1]
+    elif text.endswith("M"):
+        multiplier = 1_000_000
+        text = text[:-1]
+
+    try:
+        return int(float(text) * multiplier)
+    except ValueError:
+        return None
+
+
+def _context_window_from_details(details: Any, default: int = 4096) -> int:
+    if not isinstance(details, dict):
+        return default
+    for key in ("context_window", "context_length", "num_ctx"):
+        if key in details:
+            return _safe_int(details[key], default)
+    return default
+
+
+def _description_from_tag(tag: Dict[str, Any], details: Any) -> str:
+    description = tag.get("description", "") or ""
+    if isinstance(details, dict):
+        parameter_size = details.get("parameter_size")
+        parsed_size = _parse_parameter_count(parameter_size)
+        if parameter_size:
+            suffix = f"parameter_size={parameter_size}"
+            if parsed_size is not None:
+                suffix += f" ({parsed_size} parameters)"
+            return f"{description} {suffix}".strip()
+    return description
+
+
 
 class OllamaProvider(LLMProvider):
     def __init__(
@@ -58,6 +122,7 @@ class OllamaProvider(LLMProvider):
             model_id = t.get("name") or t.get("model") or ""
             if not model_id:
                 continue
+            details = t.get("details", {})
 
             # Ollama capabilities are inferred based on known endpoints.
             caps = [
@@ -72,12 +137,10 @@ class OllamaProvider(LLMProvider):
                 ModelInfo(
                     model_id=model_id,
                     display_name=model_id,
-                    context_window=int(t.get("details", {}).get("parameter_size", 4096))
-                    if isinstance(t.get("details", {}), dict)
-                    else 4096,
+                    context_window=_context_window_from_details(details),
                     capabilities=caps,
                     max_output_tokens=None,
-                    description=t.get("description", ""),
+                    description=_description_from_tag(t, details),
                 )
             )
         return models
@@ -104,13 +167,23 @@ class OllamaProvider(LLMProvider):
             raise LLMRequestValidationError("All messages are empty")
         return out
 
+    def _to_ollama_prompt(self, messages: List[LLMMessage]) -> str:
+        parts: List[str] = []
+        for message in messages:
+            if not message.content:
+                continue
+            parts.append(f"{message.role}: {message.content}")
+        if not parts:
+            raise LLMRequestValidationError("All messages are empty")
+        return "\n".join(parts)
+
     def generate(self, request: LLMRequest) -> LLMResponse:
         self._validate_request(request, require_streaming=False)
         opts = request.options or GenerationOptions()
 
         payload: Dict[str, Any] = {
             "model": request.model_id,
-            "messages": self._to_ollama_messages(request.messages),
+            "prompt": self._to_ollama_prompt(request.messages),
             "stream": False,
             "options": {
                 "temperature": opts.temperature,
@@ -162,7 +235,7 @@ class OllamaProvider(LLMProvider):
 
         payload: Dict[str, Any] = {
             "model": request.model_id,
-            "messages": self._to_ollama_messages(request.messages),
+            "prompt": self._to_ollama_prompt(request.messages),
             "stream": True,
             "options": {
                 "temperature": opts.temperature,
